@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Picker Design</title>
+    <title>Form with Navigation</title>
     <style>
         /* Загальні стилі для центрування та фону */
         body {
@@ -14,6 +14,25 @@
             background-color: #333;
             margin: 0;
             font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        /* Стилі для круглої кнопки "+" */
+        .open-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            color: #fff;
+            font-size: 30px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Стилі для контейнера форми */
@@ -25,6 +44,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             position: relative;
             text-align: center;
+            display: none;
         }
 
         /* Стилі для індикатора прогресу */
@@ -93,27 +113,18 @@
             align-items: center;
         }
 
-        .previous {
+        .previous, .next {
             font-size: 14px;
-            color: #333;
-            cursor: pointer;
-            text-decoration: underline;
-            background: none;
-            border: none;
-        }
-
-        .next {
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
-            font-size: 14px;
             cursor: pointer;
             background-color: #333;
             color: #fff;
             transition: background-color 0.3s;
         }
 
-        .next:hover {
+        .previous:hover, .next:hover {
             background-color: #555;
         }
 
@@ -123,10 +134,25 @@
             color: #333;
             margin-top: 10px;
         }
+
+        /* Анімація для показу контейнера */
+        .container.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Кнопка відкриття вікна -->
+    <button class="open-btn" onclick="openForm()">+</button>
+
+    <!-- Контейнер форми -->
+    <div class="container" id="formContainer">
         <!-- Індикатор прогресу -->
         <div class="progress">
             <div class="active"></div>
@@ -137,10 +163,10 @@
         </div>
 
         <!-- Кнопка закриття -->
-        <button class="close-btn">&times;</button>
+        <button class="close-btn" onclick="closeForm()">&times;</button>
 
-        <!-- Заголовок -->
-        <h2>When do you want to join the interview?</h2>
+        <!-- Заголовок форми -->
+        <h2 id="formTitle">When do you want to join the interview?</h2>
 
         <!-- Поле вибору дати -->
         <div class="date-picker">
@@ -149,8 +175,8 @@
 
         <!-- Кнопки навігації -->
         <div class="buttons">
-            <button class="previous">Previous</button>
-            <button class="next">Next</button>
+            <button class="previous" onclick="previousForm()">Previous</button>
+            <button class="next" onclick="nextForm()">Next</button>
         </div>
 
         <!-- Логотип -->
@@ -158,5 +184,58 @@
             told.
         </div>
     </div>
+
+    <script>
+        // Поточний номер форми
+        let currentForm = 1;
+
+        // Заголовки для кожної форми
+        const formTitles = [
+            "When do you want to join the interview?",
+            "Please select your preferred time slot",
+            "Confirm your contact details",
+            "Add any additional comments",
+            "Review and submit your information"
+        ];
+
+        // Функція для відкриття форми
+        function openForm() {
+            document.getElementById('formContainer').classList.add('show');
+        }
+
+        // Функція для закриття форми
+        function closeForm() {
+            document.getElementById('formContainer').classList.remove('show');
+        }
+
+        // Функція для показу наступної форми
+        function nextForm() {
+            if (currentForm < 5) {
+                currentForm++;
+                updateForm();
+            }
+        }
+
+        // Функція для показу попередньої форми
+        function previousForm() {
+            if (currentForm > 1) {
+                currentForm--;
+                updateForm();
+            }
+        }
+
+        // Функція для оновлення заголовка та індикатора прогресу
+        function updateForm() {
+            document.getElementById('formTitle').innerText = formTitles[currentForm - 1];
+            const progressBars = document.querySelectorAll('.progress div');
+            progressBars.forEach((bar, index) => {
+                if (index < currentForm) {
+                    bar.classList.add('active');
+                } else {
+                    bar.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
