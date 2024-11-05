@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Step Form with Navigation</title>
     <style>
-        /* Загальні стилі для центрування та фону */
         body {
             display: flex;
             justify-content: center;
@@ -17,7 +16,6 @@
             position: relative;
         }
 
-        /* Стилі для круглої кнопки "+" */
         .open-btn {
             position: fixed;
             bottom: 30px;
@@ -35,7 +33,6 @@
             align-items: center;
         }
 
-        /* Стилі для контейнера форми */
         .container {
             background-color: #f0f0f0;
             border-radius: 15px;
@@ -47,7 +44,6 @@
             display: none;
         }
 
-        /* Стилі для індикатора прогресу */
         .progress {
             display: flex;
             justify-content: space-between;
@@ -65,7 +61,6 @@
             background-color: #333;
         }
 
-        /* Стилі для кнопки закриття */
         .close-btn {
             position: absolute;
             top: 10px;
@@ -77,14 +72,12 @@
             border: none;
         }
 
-        /* Стилі для заголовка */
         .container h2 {
             color: #000;
             font-size: 18px;
             margin-bottom: 20px;
         }
 
-        /* Стилі для полів форми */
         .date-picker,
         .number-field {
             display: flex;
@@ -109,7 +102,26 @@
             opacity: 0.8;
         }
 
-        /* Стилі для кнопок */
+        .number-fields-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .number-field {
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 48%;
+        }
+
+        .number-field label {
+            font-size: 14px;
+            color: #333;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -131,14 +143,12 @@
             background-color: #555;
         }
 
-        /* Стилі для логотипа внизу */
         .logo {
             font-size: 12px;
             color: #333;
             margin-top: 10px;
         }
 
-        /* Анімація для показу контейнера */
         .container.show {
             display: block;
             animation: fadeIn 0.3s ease;
@@ -151,12 +161,9 @@
     </style>
 </head>
 <body>
-    <!-- Кнопка відкриття вікна -->
     <button class="open-btn" onclick="openForm()">+</button>
 
-    <!-- Контейнер форми -->
     <div class="container" id="formContainer">
-        <!-- Індикатор прогресу -->
         <div class="progress">
             <div class="active"></div>
             <div></div>
@@ -165,46 +172,40 @@
             <div></div>
         </div>
 
-        <!-- Кнопка закриття -->
         <button class="close-btn" onclick="closeForm()">&times;</button>
 
-        <!-- Заголовок форми -->
         <h2 id="formTitle">When do you want to join the interview?</h2>
 
-        <!-- Поле вибору дати (Перша форма) -->
         <div class="date-picker" id="form1">
             <input type="date" placeholder="dd / mm / yyyy">
         </div>
 
-        <!-- Поля для введення чисел (Друга форма) -->
         <div id="form2" style="display: none;">
-            <div class="number-field">
-                <label for="ads">ads</label>
-                <input type="number" id="ads" placeholder="06">
-            </div>
-            <div class="number-field">
-                <label for="counter-ads">counter ads</label>
-                <input type="number" id="counter-ads" placeholder="06">
+            <div class="number-fields-container">
+                <div class="number-field">
+                    <label for="ads">ads</label>
+                    <input type="number" id="ads" placeholder="06">
+                </div>
+                <div class="number-field">
+                    <label for="counter-ads">counter ads</label>
+                    <input type="number" id="counter-ads" placeholder="06">
+                </div>
             </div>
         </div>
 
-        <!-- Кнопки навігації -->
         <div class="buttons">
             <button class="previous" onclick="previousForm()">Previous</button>
             <button class="next" onclick="nextForm()">Next</button>
         </div>
 
-        <!-- Логотип -->
         <div class="logo">
             told.
         </div>
     </div>
 
     <script>
-        // Поточний номер форми
         let currentForm = 1;
 
-        // Заголовки для кожної форми
         const formTitles = [
             "When do you want to join the interview?",
             "Want to test our new credit card? Let us your email and we will contact you for a demo",
@@ -213,18 +214,15 @@
             "Review and submit your information"
         ];
 
-        // Функція для відкриття форми
         function openForm() {
             document.getElementById('formContainer').classList.add('show');
             updateForm();
         }
 
-        // Функція для закриття форми
         function closeForm() {
             document.getElementById('formContainer').classList.remove('show');
         }
 
-        // Функція для показу наступної форми
         function nextForm() {
             if (currentForm < 5) {
                 currentForm++;
@@ -232,7 +230,6 @@
             }
         }
 
-        // Функція для показу попередньої форми
         function previousForm() {
             if (currentForm > 1) {
                 currentForm--;
@@ -240,7 +237,6 @@
             }
         }
 
-        // Функція для оновлення заголовка та індикатора прогресу
         function updateForm() {
             document.getElementById('formTitle').innerText = formTitles[currentForm - 1];
             const progressBars = document.querySelectorAll('.progress div');
@@ -252,7 +248,6 @@
                 }
             });
             
-            // Перемикаємо між формами
             document.getElementById('form1').style.display = currentForm === 1 ? 'block' : 'none';
             document.getElementById('form2').style.display = currentForm === 2 ? 'block' : 'none';
         }
