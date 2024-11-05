@@ -106,7 +106,7 @@
             opacity: 0.8;
         }
 
-        /* Стилі для кнопок */
+        /* Стилі для кнопок
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -127,7 +127,37 @@
         .previous:hover, .next:hover {
             background-color: #555;
         }
+ */
+              /* Стилі для кнопок */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
+        .previous {
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+        }
+
+        .next {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .next:hover {
+            background-color: #555;
+        }
         /* Стилі для логотипа внизу */
         .logo {
             font-size: 12px;
