@@ -21,9 +21,40 @@
             background-color: #84b4ff;
             border-radius: 15px;
             padding: 20px;
-            width: 300px;
+            width: 320px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
             text-align: center;
+        }
+
+        /* Стилі для індикатора прогресу */
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress div {
+            width: 18%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+        }
+
+        .progress div.active {
+            background-color: #fff;
+        }
+
+        /* Стилі для кнопки закриття */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+            background: none;
+            border: none;
         }
 
         /* Стилі для заголовка */
@@ -37,10 +68,9 @@
         .date-picker {
             display: flex;
             align-items: center;
-            background-color: #aad4ff;
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 10px;
             border-radius: 10px;
-            border: 2px solid #84b4ff;
             margin-bottom: 20px;
             cursor: pointer;
         }
@@ -50,18 +80,29 @@
             outline: none;
             background: transparent;
             width: 100%;
-            text-align: center;
+            text-align: left;
             font-size: 16px;
             color: #333;
+            opacity: 0.8;
         }
 
         /* Стилі для кнопок */
         .buttons {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .buttons button {
+        .previous {
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+        }
+
+        .next {
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
@@ -72,14 +113,8 @@
             transition: background-color 0.3s;
         }
 
-        .buttons button:hover {
+        .next:hover {
             background-color: #555;
-        }
-
-        /* Стилі для іконки в поле вибору дати */
-        .date-picker::before {
-            content: "📅";
-            margin-right: 8px;
         }
 
         /* Стилі для логотипа внизу */
@@ -92,17 +127,33 @@
 </head>
 <body>
     <div class="container">
+        <!-- Індикатор прогресу -->
+        <div class="progress">
+            <div class="active"></div>
+            <div class="active"></div>
+            <div class="active"></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Кнопка закриття -->
+        <button class="close-btn">&times;</button>
+
+        <!-- Заголовок -->
         <h2>When do you want to join the interview?</h2>
-        
+
+        <!-- Поле вибору дати -->
         <div class="date-picker">
-            <input type="date">
+            <input type="date" placeholder="dd / mm / yyyy">
         </div>
-        
+
+        <!-- Кнопки навігації -->
         <div class="buttons">
-            <button>Previous</button>
-            <button>Next</button>
+            <button class="previous">Previous</button>
+            <button class="next">Next</button>
         </div>
-        
+
+        <!-- Логотип -->
         <div class="logo">
             told.
         </div>
